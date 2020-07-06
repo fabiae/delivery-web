@@ -59,7 +59,7 @@ const SignIn = props => {
                     rules={[
                         { 
                             required: true, 
-                            message: t('passwordRule') 
+                            message: t('passwordRequired') 
                         }
                     ]}>
                     <Input prefix={<LockOutlined />} type="password" placeholder={t('password')} />
