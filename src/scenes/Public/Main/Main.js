@@ -9,13 +9,15 @@ const Main = props => {
     const { t } = useTranslation()
 
     return (
-        <div style={{ paddingTop: '35vh' }}>
-            <Row justify="center">
+        <div style={{ paddingTop: '20vh' }}>
+            <Row style={{ margin: '20px 20px' }} justify="center">
                 <Col>
-                    <Button onClick={() => history.push('/signin') }>
+                    <Button type="primary" size="large" onClick={() => history.push('/signin') }>
                         {t('signin')}
                     </Button>
                 </Col>
+            </Row>
+            <Row style={{ margin: '20px 20px', padding: '5px' }} justify="center">
                 <Col>
                     <Button onClick={() => history.push('/signup')}>
                         {t('signup')}

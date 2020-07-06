@@ -1,5 +1,7 @@
 import { Config } from "../config/config"
 import token from "../storage/token"
+import authActions from '../../services/auth/authActions'
+import store from '../../store/store'
 
 const apiUrl = Config.get("API_URL")
 
@@ -18,7 +20,8 @@ class Api {
     })
       .then(async (response) => {
         if(response.status === 401){
-          console.log("Unauthorized")
+          store.dispatch(authActions.logOut())
+          return response
         }
         return { ok: response.ok, res: await response.json() }
       })
@@ -43,7 +46,8 @@ class Api {
     })
       .then(async (response) => {
         if(response.status === 401){
-          console.log("Unauthorized")
+          store.dispatch(authActions.logOut())
+          return response
         }
         return { ok: response.ok, res: await response.json() }
       })
@@ -68,7 +72,8 @@ class Api {
     })
       .then(async (response) => {
         if(response.status === 401){
-          console.log("Unauthorized")
+          store.dispatch(authActions.logOut())
+          return response
         }
         return { ok: response.ok, res: await response.json() }
       })
@@ -85,7 +90,8 @@ class Api {
     })
       .then(async (response) => {
         if (response.status === 401){
-          console.log("Unauthorized")
+          store.dispatch(authActions.logOut())
+          return response
         }
         return { ok: response.ok, res: await response.json() }
       })

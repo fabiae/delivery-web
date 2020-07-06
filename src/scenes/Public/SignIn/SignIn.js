@@ -30,14 +30,18 @@ const SignIn = props => {
                 scrollToFirstError>
 
                 <Form.Item
-                    name="username"
+                    name="email"
                     rules={[
                         { 
                             required: true, 
-                            message: t('usernameRule')
+                            message: t('emailRequired')
+                        },
+                        {
+                            type: 'email',
+                            message: t('emailType')
                         }
                     ]}>
-                    <Input prefix={<UserOutlined />} placeholder={t('username')} />
+                    <Input prefix={<UserOutlined />} placeholder={t('email')} />
                 </Form.Item>
 
                 <Form.Item
@@ -60,13 +64,11 @@ const SignIn = props => {
                         message={message}/> : null
                 }</Spin>
 
-                <Form.Item>
                 <Link to="/recover-pass">{t('forgotPassword')}</Link>
-                </Form.Item>
 
                 <Form.Item>
                     <Button block type="primary" htmlType="submit">
-                        {t('signinButton')}
+                        {t('signin')}
                     </Button>
                 {t('or')} <Link to="/signup">{t('registerNow')}</Link>
                 </Form.Item>

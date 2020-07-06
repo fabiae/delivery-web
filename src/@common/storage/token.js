@@ -7,6 +7,8 @@ class Token {
 
   setToken = (token) => localStorage.setItem("token", token)
 
+  removeToken = () => localStorage.removeItem("token")
+
   isTokenValid = () => {
     try {
       return this.decode() !== undefined

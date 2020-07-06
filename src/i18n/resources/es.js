@@ -1,29 +1,3 @@
-const auth = {
-    signin: 'Iniciar Sesión',
-    signup: 'Registrarse'
-}
-
-const signin = {
-    username: 'Usuario',
-    usernameRule: '¡Porfavor, ingresa tu nombre de usuario!',
-    password: 'Contraseña',
-    passwordRule: '¡Porfavor, ingresa tu contraseña!',
-    forgotPassword: '¿Olvidaste tu contraseña?',
-    signinButton: 'Iniciar Sesión',
-    or: 'O',
-    registerNow: '¡Registrate ahora!'
-}
-
-const signup = {
-    usernameLenght: 'El usuario debe tener minimo 6 caracteres',
-    userAvailable: 'Usuario no disponible',
-    email: 'Correo',
-    emailRequired: '¡Porfavor, ingresa tu correo electronico!',
-    emailType: 'El valor ingresado no es un correo',
-    confirmPassword: 'Confirma tu contraseña',
-    confirmPasswordRule: 'Las contraseñas no coinciden',
-    signupButton: 'Registrarme'
-}
 
 const recover = {
     sendCode: 'Enviar Codigo',
@@ -35,8 +9,26 @@ const recover = {
 }
 
 export const es = {
-    ...auth,
-    ...signin,
-    ...signup,
+    languages: 'Lenguajes',
+    signin: 'Iniciar Sesión',
+    signup: 'Registrarse',
+    email: 'Correo',
+    emailRequired: '¡Porfavor, ingresa tu correo electronico!',
+    emailType: 'No es un correo valido',
+    name: 'Nombre',
+    nameRequired: '¡Porfavor, ingresa tu nombre!',
+    nameMin: 'El nombre debe tener minimo 2 caracteres',
+    nameMax: 'El nombre debe tener maximo 20 caracteres',
+    password: 'Contraseña',
+    passwordRule: '¡Porfavor, ingresa tu contraseña!',
+    confirmPassword: 'Confirma tu contraseña',
+    confirmPasswordRule: 'Las contraseñas no coinciden',
+    forgotPassword: '¿Olvidaste tu contraseña?',
+    or: 'O',
+    registerNow: '¡Registrate ahora!',
+    welcome: '!Bienvenido¡',
+    listClients: 'Lista de Clientes',
+    id: 'Identificador',
+    state: 'Estado',
     ...recover
 }

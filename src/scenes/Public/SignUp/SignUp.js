@@ -1,141 +1,148 @@
 import React from 'react'
 import { Form, Input, Button, Spin, Alert, Row, Col } from 'antd'
-import { UserOutlined, MailOutlined, LockOutlined, CheckOutlined, CloseOutlined } from '@ant-design/icons'
+import { UserOutlined, MailOutlined, LockOutlined } from '@ant-design/icons'
 import { useSelector, useDispatch } from 'react-redux'
+import { useTranslation } from 'react-i18next'
+import { Link } from 'react-router-dom'
 
 import authActions from '../../../services/auth/authActions'
-import { useTranslation } from 'react-i18next'
 
 const SignUp = props => {
-    
+
     const dispatch = useDispatch()
-    const { 
-        loading: { loadignSignup, loadingAvailable }, 
+    const {
+        loading: { loadignSignup },
         error: { errorSignup, message },
-        available
     } = useSelector(state => state.auth)
+
     const [form] = Form.useForm()
-    const { t } = useTranslation() 
-    const { userAvailable,signUp } = authActions
-    
+    const { t } = useTranslation()
+    const { signUp } = authActions
+
     const onFinish = () => {
         form.validateFields().then((values) => {
             dispatch(signUp(values))
         })
     }
 
-    const changeUsername = () => {
-        const username = form.getFieldValue('username')
-        if(username)
-            dispatch(userAvailable(username))
-    }
-
     return (
         <div style={{ padding: '80px 50px', width: '450px', display: 'inline-block' }}>
-            <Form 
+            <Form
                 name='signup'
-                form={form} 
-                scrollToFirstError 
+                form={form}
+                scrollToFirstError
                 onFinish={onFinish}>
-                    
-                <Row>
-                    <Col span={23}>
-                        <Form.Item
-                            name='username'
-                            rules={[
-                                {
-                                    required: true,
-                                    message: t('usernameRule')
-                                },
-                                {
-                                    min: 6,
-                                    message: t('usernameLenght')
-                                },
-                                () => ({
-                                    validator(rule, value) {
-                                        if(available)
-                                            return Promise.resolve();
-                                        return Promise.reject(t('userAvailable'))
-                                    }
-                                }) 
-                            ]}>
-                            <Input prefix={<UserOutlined />} placeholder={t('username')} onChange={changeUsername} />
-                        </Form.Item>
-                    </Col>
-                    <Col span={1}>
-                        <Spin spinning={loadingAvailable}>
-                            { available ? <CheckOutlined/> : <CloseOutlined/>}
-                        </Spin>
-                    </Col>
-                </Row>
-                
-                <Col span={23}>
-                    <Form.Item
-                        name='email'
-                        rules={[
-                            {
-                                required: true,
-                                message: t('emailRequired')
-                            }, 
-                            {
-                                type: 'email',
-                                message: t('emailType')
-                            }
-                        ]}>
-                        <Input prefix={<MailOutlined />} placeholder={t('email')} />
-                    </Form.Item>
-                </Col>
+                <Form.Item
+                    name='email'
+                    rules={[
+                        {
+                            required: true,
+                            message: t('emailRequired')
+                        },
+                        {
+                            type: 'email',
+                            message: t('emailType')
+                        }
+                    ]}>
+                    <Input prefix={<MailOutlined />} placeholder={t('email')} />
+                </Form.Item>
 
-                <Col span={23}>
-                    <Form.Item
-                        name='password'
-                        hasFeedback
-                        rules={[{
+                <Form.Item
+                    name='name'
+                    rules={[
+                        {
+                            required: true,
+                            message: t('nameRequired')
+                        },
+                        {
+                            min: 2,
+                            message: t('nameMin')
+                        },
+                        {
+                            max: 20,
+                            message: t('nameMax')
+                        }
+                    ]}>
+                    <Input prefix={<UserOutlined />} placeholder={t('name')} />
+                </Form.Item>
+
+                <Form.Item
+                    name='password'
+                    hasFeedback
+                    rules={[
+                        {
                             required: true,
                             message: t('passwordRule')
-                        }]}>
-                        <Input.Password prefix={<LockOutlined />} placeholder={t('password')}/>
-                    </Form.Item>
-                </Col>
-            
-                <Col span={23}>
-                    <Form.Item
-                        name="confirm"
-                        dependencies={['password']}
-                        hasFeedback
-                        rules={[
-                            {
-                                required: true,
-                                message: t('confirmPassword'),
-                            },
-                            ({ getFieldValue }) => ({
-                                validator(rule, value) {
-                                    if (!value || getFieldValue('password') === value) {
-                                        return Promise.resolve();
+                        },
+                        () => ({
+                            validator(rule, value) {
+                                var may = 0;
+                                for (var i = 0; i < value.length; i++) {
+                                    if (value.charCodeAt(i) >= 65 && value.charCodeAt(i) <= 90) {
+                                        may++
                                     }
-                                    return Promise.reject(t('confirmPasswordRule'));
-                                    },
-                            }),
-                        ]}>
-                        <Input.Password prefix={<LockOutlined />} placeholder={t('confirmPassword')} />
-                    </Form.Item>
-                </Col>
+                                }
+                                if (may >= 2)
+                                    return Promise.resolve()
+                                return Promise.reject('La contraseña debe tener minimo 2 mayusculas')
+                            }
+                        }),
+                        () => ({
+                            validator(rule, value) {
+                                var num = 0;
+                                for (var i = 0; i < value.length; i++) {
+                                    if (value.charCodeAt(i) >= 48 && value.charCodeAt(i) <= 57) {
+                                        num++
+                                    }
+                                }
+                                if (num >= 3)
+                                    return Promise.resolve()
+                                return Promise.reject('La contraseña debe tener minimo 3 numeros')
+                            }
+                        })
+                    ]}>
+                    <Input.Password prefix={<LockOutlined />} placeholder={t('password')} />
+                </Form.Item>
+
+                <Form.Item
+                    name="confirm"
+                    dependencies={['password']}
+                    hasFeedback
+                    rules={[
+                        {
+                            required: true,
+                            message: t('confirmPassword'),
+                        },
+                        ({ getFieldValue }) => ({
+                            validator(rule, value) {
+                                if (!value || getFieldValue('password') === value) {
+                                    return Promise.resolve();
+                                }
+                                return Promise.reject(t('confirmPasswordRule'));
+                            },
+                        }),
+                    ]}>
+                    <Input.Password prefix={<LockOutlined />} placeholder={t('confirmPassword')} />
+                </Form.Item>
+
 
                 <Spin spinning={loadignSignup}>{
-                    errorSignup ? 
-                    <Alert
-                        type="error"
-                        showIcon
-                        closable
-                        message={message}/> : null
+                    errorSignup ?
+                        <Alert
+                            type="error"
+                            showIcon
+                            closable
+                            message={message} /> : null
                 }</Spin>
 
-                <Form.Item>
+                <Form.Item style={{ padding: '0px 20px' }}>
                     <Button
+                        block
                         type='primary'
                         htmlType='submit'>
-                        {t('signupButton')}
+                        {t('signup')}
                     </Button>
+                    {t('or')} <Link to="/signin">{t('signin')}</Link>
                 </Form.Item>
 
             </Form>
@@ -144,7 +151,7 @@ const SignUp = props => {
 }
 
 SignUp.propTypes = {
-    
+
 }
 
 export default SignUp

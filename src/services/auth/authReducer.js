@@ -6,7 +6,6 @@ const initialState = {
     authenticated: token.isTokenValid(),
     loading: {
         loadingSignin: false,
-        loadingAvailable: false,
         loadignSignup: false,
         loadingSendCode: false,
         loadingValidateCode: false,
@@ -25,6 +24,32 @@ const initialState = {
 }
 
 const authReducer = handleActions({
+    SIGN_UP: (state, action) => {
+        return {
+            ...state,
+            loading: {...state.loading, loadignSignup: true },
+            error: {...state.error, errorSignup: false }
+        }
+    },
+    SIGN_UP_RESPONSE: {
+        next(state, action){
+            return {
+                ...state,
+                authenticated: true,
+                loading: {...state.loading, loadignSignup: false },
+                error: {...state.error, errorSignup: false }
+            }
+        },
+        throw(state, action){
+            const { message } = action.payload
+            return {
+                ...state, 
+                loading: {...state.loading, loadignSignup: false },
+                error: {...state.error, errorSignup: true, message }
+            }
+        }
+    },
+
     SIGN_IN: (state, action) => {
         return {
             ...state,
@@ -34,10 +59,8 @@ const authReducer = handleActions({
     },
     SIGN_IN_RESPONSE: {
         next(state, action){
-            const { token } = action.payload
             return {
                 ...state,
-                user: token.username,
                 authenticated: true,
                 loading: {...state.loading, loadingSignin: false },
                 error: {...state.error, errorSignin: false }
@@ -53,46 +76,10 @@ const authReducer = handleActions({
         }
     },
 
-    USER_AVAILABLE: (state, action) => {
-        return {
-            ...state, 
-            loading: {...state.loading, loadingAvailable: true }
-        }
-    },
-    USER_AVAILABLE_RESPONSE: (state, action) => {
-        const { available } = action.payload
+    LOG_OUT: (state, action) => {
         return {
             ...state,
-            available,
-            loading: {...state.loading, loadingAvailable: false }
-        }
-    },
-
-    SIGN_UP: (state, action) => {
-        return {
-            ...state,
-            loading: {...state.loading, loadignSignup: true },
-            error: {...state.error, errorSignup: false }
-        }
-    },
-    SIGN_UP_RESPONSE: {
-        next(state, action){
-            const { token } = action.payload
-            return {
-                ...state,
-                user: token.username,
-                authenticated: true,
-                loading: {...state.loading, loadignSignup: false },
-                error: {...state.error, errorSignup: false }
-            }
-        },
-        throw(state, action){
-            const { message } = action.payload
-            return {
-                ...state, 
-                loading: {...state.loading, loadignSignup: false },
-                error: {...state.error, errorSignup: true, message }
-            }
+            authenticated: false
         }
     },
 

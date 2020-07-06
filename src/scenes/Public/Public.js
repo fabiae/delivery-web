@@ -5,8 +5,8 @@ import { Layout } from 'antd'
 import Main from './Main/Main'
 import SignIn from './SignIn/SignIn'
 import SignUp from './SignUp/SignUp'
-import HeaderPublic from './components/HeaderPublic/HeaderPublic'
 import RecoverPassword from './RecoverPassword/RecoverPassword'
+import Head from '../../components/Head/Head'
 
 const { Footer, Content } = Layout
 
@@ -14,8 +14,8 @@ const Public = props => {
 
     return (
         <Layout>
-            <HeaderPublic />
-            <Content style={{ minHeight: '70vh' }}>
+            <Head />
+            <Content style={{ minHeight: '70vh', background: '#cecece' }}>
                 <Switch>
                     <Route path="/signup" component={SignUp} />
                     <Route path="/signin" component={SignIn}/>
@@ -23,7 +23,7 @@ const Public = props => {
                     <Route path="/" component={Main} />
                 </Switch>
             </Content>
-            <Footer style={{ fontSize: '12px', textAlign: 'left' }}> Footer react template App</Footer>
+            <Footer style={{ fontSize: '12px', textAlign: 'left' }}>Footer delivery</Footer>
         </Layout>
     )
 }
