@@ -37,6 +37,8 @@ const NewPassword = props => {
                     },
                     () => ({
                         validator(rule, value) {
+                            if(!value)
+                                    return Promise.resolve()
                             var may = 0;
                             for (var i = 0; i < value.length; i++) {
                                 if (value.charCodeAt(i) >= 65 && value.charCodeAt(i) <= 90) {
@@ -50,6 +52,8 @@ const NewPassword = props => {
                     }),
                     () => ({
                         validator(rule, value) {
+                            if(!value)
+                                    return Promise.resolve()
                             var num = 0;
                             for (var i = 0; i < value.length; i++) {
                                 if (value.charCodeAt(i) >= 48 && value.charCodeAt(i) <= 57) {

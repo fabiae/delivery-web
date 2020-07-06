@@ -51,23 +51,24 @@ const SignIn = props => {
                             message: t('emailType')
                         }
                     ]}>
-                    <Input prefix={<UserOutlined />} placeholder={t('email')} />
+                    <Input name="email" prefix={<UserOutlined />} placeholder={t('email')} />
                 </Form.Item>
 
                 <Form.Item
                     name="password"
                     rules={[
-                        { 
+                        {
                             required: true, 
                             message: t('passwordRequired') 
                         }
                     ]}>
-                    <Input prefix={<LockOutlined />} type="password" placeholder={t('password')} />
+                    <Input name="password" prefix={<LockOutlined />} type="password" placeholder={t('password')} />
                 </Form.Item>
 
                 <Spin spinning={loadingSignin}>{
                     errorSignin ? 
                     <Alert
+                        className="alert"
                         type="error"
                         showIcon
                         closable

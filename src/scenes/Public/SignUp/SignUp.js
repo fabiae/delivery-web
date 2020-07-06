@@ -51,7 +51,7 @@ const SignUp = props => {
                             message: t('emailType')
                         }
                     ]}>
-                    <Input prefix={<MailOutlined />} placeholder={t('email')} />
+                    <Input name="email" prefix={<MailOutlined />} placeholder={t('email')} />
                 </Form.Item>
 
                 <Form.Item
@@ -70,7 +70,7 @@ const SignUp = props => {
                             message: t('nameMax')
                         }
                     ]}>
-                    <Input prefix={<UserOutlined />} placeholder={t('name')} />
+                    <Input name="name" prefix={<UserOutlined />} placeholder={t('name')} />
                 </Form.Item>
 
                 <Form.Item
@@ -83,6 +83,8 @@ const SignUp = props => {
                         },
                         () => ({
                             validator(rule, value) {
+                                if(!value)
+                                    return Promise.resolve()
                                 var may = 0;
                                 for (var i = 0; i < value.length; i++) {
                                     if (value.charCodeAt(i) >= 65 && value.charCodeAt(i) <= 90) {
@@ -96,6 +98,8 @@ const SignUp = props => {
                         }),
                         () => ({
                             validator(rule, value) {
+                                if(!value)
+                                    return Promise.resolve()
                                 var num = 0;
                                 for (var i = 0; i < value.length; i++) {
                                     if (value.charCodeAt(i) >= 48 && value.charCodeAt(i) <= 57) {
@@ -108,7 +112,7 @@ const SignUp = props => {
                             }
                         })
                     ]}>
-                    <Input.Password prefix={<LockOutlined />} placeholder={t('password')} />
+                    <Input.Password name="password" prefix={<LockOutlined />} placeholder={t('password')} />
                 </Form.Item>
 
                 <Form.Item
@@ -129,13 +133,14 @@ const SignUp = props => {
                             },
                         }),
                     ]}>
-                    <Input.Password prefix={<LockOutlined />} placeholder={t('confirmPassword')} />
+                    <Input.Password name="confirm-password" prefix={<LockOutlined />} placeholder={t('confirmPassword')} />
                 </Form.Item>
 
 
                 <Spin spinning={loadignSignup}>{
                     errorSignup ?
                         <Alert
+                            className="alert"
                             type="error"
                             showIcon
                             closable
