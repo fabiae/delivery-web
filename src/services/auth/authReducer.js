@@ -11,13 +11,8 @@ const initialState = {
         loadingValidateCode: false,
         loadingNewPassword: false
     },
-    error: {
-        errorSignin: false,
-        errorSignup: false,
-        errorSendCode: false,
-        errorValidateCode: false,
-        errorNewPassword: false
-    },
+    error: {},
+    message : {},
     recover: {
         step: 0
     }
@@ -45,7 +40,8 @@ const authReducer = handleActions({
             return {
                 ...state, 
                 loading: {...state.loading, loadignSignup: false },
-                error: {...state.error, errorSignup: true, message }
+                error: {...state.error, errorSignup: true },
+                message: { messageSignUp: message }
             }
         }
     },
@@ -71,7 +67,8 @@ const authReducer = handleActions({
             return {
                 ...state,
                 loading: {...state.loading, loadingSignin: false },
-                error: {...state.error, errorSignin: true, message }
+                error: {...state.error, errorSignin: true },
+                message: { messageSignIn: message }
             }
         }
     },
@@ -98,7 +95,8 @@ const authReducer = handleActions({
                 ...state,
                 recover: { step: 1, userId },
                 loading: {...state.loading, loadingSendCode: false },
-                error: {...state.error, errorSendCode: false }
+                error: {...state.error, errorSendCode: false },
+                message: {...state.message, messageSendCode: response.message }
             }
         },
         throw(state, action){
@@ -106,7 +104,8 @@ const authReducer = handleActions({
             return {
                 ...state,
                 loading: {...state.loading, loadingSendCode: false },
-                error: {...state.error, errorSendCode: true, message }
+                error: {...state.error, errorSendCode: true },
+                message: {...state.message, messageSendCode: message }
             }
         }
     },
@@ -120,11 +119,13 @@ const authReducer = handleActions({
     },
     VALIDATE_CODE_RESPONSE:{
         next(state, action){
+            const { response } = action.payload
             return {
                 ...state,
                 recover: {...state.recover, step: 2 },
                 loading: {...state.loading, loadingValidateCode: false },
-                error: {...state.error, errorValidateCode: false }
+                error: {...state.error, errorValidateCode: false },
+                message: {...state.message, messageValidateCode: response.message }
             }
         },
         throw(state, action){
@@ -132,7 +133,8 @@ const authReducer = handleActions({
             return {
                 ...state,
                 loading: {...state.loading, loadingValidateCode: false },
-                error: {...state.error, errorValidateCode: true, message}
+                error: {...state.error, errorValidateCode: true },
+                message: {...state.message, messageValidateCode: message }
             }
         }
     },
@@ -146,11 +148,13 @@ const authReducer = handleActions({
     },
     NEW_PASSWORD_RESPONSE: {
         next(state, action){
+            const { response } = action.payload
             return {
                 ...state,
                 recover: { step: 0 },
                 loading: {...state.loading, loadingNewPassword: false },
-                error: {...state.error, errorNewPassword: false }
+                error: {...state.error, errorNewPassword: false },
+                message: {...state.message, messageNewPassword: response.message }
             }
         },
         throw(state, action){
@@ -158,10 +162,25 @@ const authReducer = handleActions({
             return {
                 ...state,
                 loading: {...state.loading, loadingNewPassword: false },
-                error: {...state.error, errorNewPassword: true, message }
+                error: {...state.error, errorNewPassword: true },
+                message: {...state.message, messageNewPassword: message }
             }
         }
+    },
+
+    RESET_STEPS: (state, action) => {
+        return {
+            ...state,
+            recover: { step: 0 }
+        }
+    },
+    RESET_ERROR: (state, action) => {
+        return {
+            ...state,
+            error: { }
+        }
     }
+
 }, initialState)
 
 export default authReducer

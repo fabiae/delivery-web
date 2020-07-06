@@ -71,7 +71,7 @@ const Private = props => {
                                         render={state => {
                                             let color = state === States.ACTIVE ? 'green' : 'red'
                                             return (
-                                                <Tag color={color} key={state}>
+                                                <Tag color={color}>
                                                     {state}
                                                 </Tag>
                                             )

@@ -16,7 +16,10 @@ const authActions = createActions({
     VALIDATE_CODE_RESPONSE: (response) => ({response}),
     
     NEW_PASSWORD: (password, id) => ({ password, id }),
-    NEW_PASSWORD_RESPONSE: (response) => ({ response })
+    NEW_PASSWORD_RESPONSE: (response) => ({ response }),
+
+    RESET_STEPS: () => ({}),
+    RESET_ERROR: () => ({})
 })
 
 export default authActions

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Form, Input, Button, Spin, Alert } from 'antd'
 import { UserOutlined, LockOutlined } from '@ant-design/icons'
 import { Link } from 'react-router-dom'
@@ -10,16 +10,26 @@ import authActions from '../../../services/auth/authActions'
 const SignIn = props => {
 
     const dispatch = useDispatch()
-    const { loading: { loadingSignin }, error: { errorSignin, message }} = useSelector(state => state.auth)
+    const { 
+        loading: { loadingSignin }, 
+        error: { errorSignin },
+        message: { messageSignIn }
+    } = useSelector(state => state.auth)
     const { t } = useTranslation()
     const [form] = Form.useForm()
-    const { signIn } = authActions
+    const { signIn, resetError } = authActions
 
     const onFinish = () => {
         form.validateFields().then((values) => {
             dispatch(signIn(values))
         })
     }
+
+    useEffect(() => {
+        return () => {
+            dispatch(resetError())
+        }
+    },[])
 
     return (
         <div style={{ padding: '80px 50px', width: '450px', display: 'inline-block' }}>
@@ -61,7 +71,7 @@ const SignIn = props => {
                         type="error"
                         showIcon
                         closable
-                        message={message}/> : null
+                        message={messageSignIn}/> : null
                 }</Spin>
 
                 <Link to="/recover-pass">{t('forgotPassword')}</Link>

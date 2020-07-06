@@ -1,5 +1,5 @@
-import React from 'react'
-import { Form, Input, Button, Spin, Alert, Row, Col } from 'antd'
+import React, { useEffect } from 'react'
+import { Form, Input, Button, Spin, Alert } from 'antd'
 import { UserOutlined, MailOutlined, LockOutlined } from '@ant-design/icons'
 import { useSelector, useDispatch } from 'react-redux'
 import { useTranslation } from 'react-i18next'
@@ -12,18 +12,25 @@ const SignUp = props => {
     const dispatch = useDispatch()
     const {
         loading: { loadignSignup },
-        error: { errorSignup, message },
+        error: { errorSignup },
+        message: { messageSignUp }
     } = useSelector(state => state.auth)
 
     const [form] = Form.useForm()
     const { t } = useTranslation()
-    const { signUp } = authActions
+    const { signUp, resetError } = authActions
 
     const onFinish = () => {
         form.validateFields().then((values) => {
             dispatch(signUp(values))
         })
     }
+
+    useEffect(() => {
+        return () => {
+            dispatch(resetError())
+        }
+    },[])
 
     return (
         <div style={{ padding: '80px 50px', width: '450px', display: 'inline-block' }}>
@@ -132,7 +139,7 @@ const SignUp = props => {
                             type="error"
                             showIcon
                             closable
-                            message={message} /> : null
+                            message={messageSignUp} /> : null
                 }</Spin>
 
                 <Form.Item style={{ padding: '0px 20px' }}>

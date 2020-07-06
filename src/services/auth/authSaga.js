@@ -26,6 +26,7 @@ function* signIn(data){
         yield put (authActions.signInResponse())
         yield put(push('/'))
     }else{
+        console.log(response)
         const error = new TypeError(response.res.message)
         yield put(authActions.signInResponse(error))
     }
