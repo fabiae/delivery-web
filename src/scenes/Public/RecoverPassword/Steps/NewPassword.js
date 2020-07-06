@@ -30,10 +30,38 @@ const NewPassword = props => {
             <Form.Item
                 name='password'
                 hasFeedback
-                rules={[{
-                    required: true,
-                    message: t('passwordRule')
-                }]}>
+                rules={[
+                    {
+                        required: true,
+                        message: t('newPasswordRequired')
+                    },
+                    () => ({
+                        validator(rule, value) {
+                            var may = 0;
+                            for (var i = 0; i < value.length; i++) {
+                                if (value.charCodeAt(i) >= 65 && value.charCodeAt(i) <= 90) {
+                                    may++
+                                }
+                            }
+                            if (may >= 2)
+                                return Promise.resolve()
+                            return Promise.reject(t('passwordMay'))
+                        }
+                    }),
+                    () => ({
+                        validator(rule, value) {
+                            var num = 0;
+                            for (var i = 0; i < value.length; i++) {
+                                if (value.charCodeAt(i) >= 48 && value.charCodeAt(i) <= 57) {
+                                    num++
+                                }
+                            }
+                            if (num >= 3)
+                                return Promise.resolve()
+                            return Promise.reject(t('passwordNum'))
+                        }
+                    })
+                ]}>
                 <Input.Password prefix={<LockOutlined />} placeholder={t('newPassword')} />
             </Form.Item>
             <Form.Item
@@ -41,10 +69,6 @@ const NewPassword = props => {
                 dependencies={['password']}
                 hasFeedback
                 rules={[
-                    {
-                        required: true,
-                        message: t('confirmPassword'),
-                    },
                     ({ getFieldValue }) => ({
                         validator(rule, value) {
                             if (!value || getFieldValue('password') === value) {
@@ -54,7 +78,7 @@ const NewPassword = props => {
                         },
                     }),
                 ]}>
-                <Input.Password prefix={<LockOutlined />} placeholder={t('confirmPassword')} />
+                <Input.Password prefix={<LockOutlined />} placeholder={t('confirmNewPassword')} />
             </Form.Item>
             <Form.Item>
                 <Button type='primary' htmlType='submit'>{t('changePassword')}</Button>

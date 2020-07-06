@@ -35,7 +35,7 @@ const RecoverPassword = props => {
                             loadingValidateCode ? <LoadingOutlined/> : <CheckOutlined /> } />
                 <Step 
                     status={errorNewPassword ? 'error' : null} 
-                    title={t('changePassword')} 
+                    title={t('newPassword')} 
                     icon={
                         errorNewPassword ? <CloseCircleOutlined/> : 
                             loadingNewPassword ? <LoadingOutlined/> : <UnlockOutlined /> } />

@@ -110,6 +110,7 @@ const authReducer = handleActions({
             }
         }
     },
+
     VALIDATE_CODE: (state, action) => {
         return {
             ...state,
@@ -135,6 +136,7 @@ const authReducer = handleActions({
             }
         }
     },
+    
     NEW_PASSWORD: (state, action) => {
         return {
             ...state,

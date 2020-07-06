@@ -1,13 +1,4 @@
 
-const recover = {
-    sendCode: 'Enviar Codigo',
-    code: 'Codigo',
-    codeRule: 'Ingresa el codigo',
-    validateCode: 'Validar Codigo',
-    newPassword: 'Ingresa tu nueva contraseña',
-    changePassword: 'Cambiar Contraseña'
-}
-
 export const es = {
     languages: 'Lenguajes',
     signin: 'Iniciar Sesión',
@@ -20,7 +11,9 @@ export const es = {
     nameMin: 'El nombre debe tener minimo 2 caracteres',
     nameMax: 'El nombre debe tener maximo 20 caracteres',
     password: 'Contraseña',
-    passwordRule: '¡Porfavor, ingresa tu contraseña!',
+    passwordRequired: '¡Porfavor, ingresa tu contraseña!',
+    passwordMay: 'La contraseña debe tener minimo 2 mayusculas',
+    passwordNum: 'La contraseña debe tener minimo 3 numeros',
     confirmPassword: 'Confirma tu contraseña',
     confirmPasswordRule: 'Las contraseñas no coinciden',
     forgotPassword: '¿Olvidaste tu contraseña?',
@@ -30,5 +23,12 @@ export const es = {
     listClients: 'Lista de Clientes',
     id: 'Identificador',
     state: 'Estado',
-    ...recover
+    sendCode: 'Enviar Código',
+    validateCode: 'Validar Código',
+    newPassword: 'Nueva Contraseña',
+    code: 'Código',
+    codeRequired: 'Ingresa el código',
+    newPasswordRequired: '¡Porfavor, ingresa tu nueva contraseña!',
+    confirmNewPassword: 'Confirma tu nueva contraseña',
+    changePassword: 'Cambiar contraseña'
 }

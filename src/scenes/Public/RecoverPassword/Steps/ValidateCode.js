@@ -31,7 +31,7 @@ const ValidateCode = props => {
                 rules={[
                     {
                         required: true,
-                        message: t('codeRule')
+                        message: t('codeRequired')
                     },
                 ]}>
                 <InputNumber placeholder={t('code')} maxLength={6} />

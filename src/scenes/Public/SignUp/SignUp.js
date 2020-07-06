@@ -72,7 +72,7 @@ const SignUp = props => {
                     rules={[
                         {
                             required: true,
-                            message: t('passwordRule')
+                            message: t('passwordRequired')
                         },
                         () => ({
                             validator(rule, value) {
@@ -84,7 +84,7 @@ const SignUp = props => {
                                 }
                                 if (may >= 2)
                                     return Promise.resolve()
-                                return Promise.reject('La contraseña debe tener minimo 2 mayusculas')
+                                return Promise.reject(t('passwordMay'))
                             }
                         }),
                         () => ({
@@ -97,7 +97,7 @@ const SignUp = props => {
                                 }
                                 if (num >= 3)
                                     return Promise.resolve()
-                                return Promise.reject('La contraseña debe tener minimo 3 numeros')
+                                return Promise.reject(t('passwordNum'))
                             }
                         })
                     ]}>

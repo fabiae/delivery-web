@@ -59,7 +59,7 @@ function* validateCode(data){
 
 function* newPassword(data){
     const { payload } = data
-    const response = yield Api.post('/auth/recover-password', payload)
+    const response = yield Api.post('/auth/new-password', payload)
     if(response.ok){
         yield put(authActions.newPasswordResponse(response.res))
         yield put(push('/signin'))
@@ -73,7 +73,6 @@ function* actionWatcher(){
     yield takeLatest(authActions.signUp, signUp)
     yield takeLatest(authActions.signIn, signIn)
     yield takeLatest(authActions.logOut, logOut)
-    
     yield takeLatest(authActions.sendCode, sendCode)
     yield takeLatest(authActions.validateCode, validateCode)
     yield takeLatest(authActions.newPassword, newPassword)

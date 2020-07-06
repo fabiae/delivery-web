@@ -11,7 +11,9 @@ export const en = {
     nameMin: 'The name must have a minimum of 2 characters',
     nameMax: 'The name must have a maximum of 20 characters',
     password: 'Password',
-    passwordRule: 'Please, enter your password!',
+    passwordRequired: 'Please, enter your password!',
+    passwordMay: 'The password must have a minimum of 2 capital letters',
+    passwordNum: 'The password must have a minimum of 3 numbers',
     confirmPassword: 'Confirm your password',
     confirmPasswordRule: 'Passwords do not match',
     forgotPassword: 'Did you forget your password?',
@@ -21,4 +23,12 @@ export const en = {
     listClients: 'Client list',
     id: 'Identifier',
     state: 'State',
+    sendCode: 'Send Code',
+    validateCode: 'Validate Code',
+    newPassword: 'New Password',
+    code: 'Code',
+    codeRequired: 'Enter the code',
+    newPasswordRequired: 'Please, enter your new password!',
+    confirmNewPassword: 'Confirm your new password',
+    changePassword: 'Change Password'
 }
